@@ -1,0 +1,59 @@
+﻿@model Employee
+
+<h2>Update Employee</h2>
+
+<form method="post" asp-area="Admin" asp-controller="Employee" asp-action="Update">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="FirstName">First Name</label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="LastName">Last Name</label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Position">Position</label>
+        <input asp-for="Position" class="form-control" />
+        <span asp-validation-for="Position" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageName">Image Name</label>
+        <input asp-for="ImageName" class="form-control" />
+        <span asp-validation-for="ImageName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ImageUrl">Image URL</label>
+        <input asp-for="ImageUrl" class="form-control" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <div style="margin-top: 10px;">
+                <img src="@Model.ImageUrl" alt="Current Image" style="max-width: 150px; height:auto;" />
+            </div>
+        }
+    </div>
+
+    <div class="form-group">
+        <label asp-for="IsDeleted">Is Deleted</label>
+        <input asp-for="IsDeleted" type="checkbox" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-area="Admin" asp-controller="Employee" asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+</div>

@@ -1,0 +1,74 @@
+﻿@model List<Employee>
+
+<div>
+    <div style="margin-bottom: 15px;">
+        <a asp-area="Admin"
+           asp-controller="Employee"
+           asp-action="Create"
+           class="btn btn-success">
+            Create New Employee
+        </a>
+    </div>
+
+    <table class="table table-bordered" style="table-layout: fixed; width: 100%;">
+        <thead>
+            <tr>
+                <th style="width: 5%;">Id</th>
+                <th style="width: 15%;">Name</th>
+                <th style="width: 15%;">Position</th>
+                <th style="width: 20%;">Description</th>
+                <th style="width: 15%;">Image</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 20%;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in Model)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.FirstName @employee.LastName</td>
+                    <td>@employee.Position</td>
+                    <td>@employee.Description</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(employee.ImageUrl))
+                        {
+                            <img src="@employee.ImageUrl" alt="Employee Image" style="max-width: 100px; height:auto;" />
+                        }
+                    </td>
+                    <td>@(employee.IsDeleted ? "Inactive" : "Active")</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm"
+                           asp-area="Admin"
+                           asp-controller="Employee"
+                           asp-action="Update"
+                           asp-route-id="@employee.Id">
+                            Update
+                        </a>
+
+                        <form asp-area="Admin"
+                              asp-controller="Employee"
+                              asp-action="Delete"
+                              asp-route-id="@employee.Id"
+                              method="post"
+                              style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+
+                        <form asp-area="Admin"
+                              asp-controller="Employee"
+                              asp-action="Toggle"
+                              asp-route-id="@employee.Id"
+                              method="post"
+                              style="display:inline; margin-left: 5px;">
+                            <button type="submit" class="btn btn-sm @(employee.IsDeleted ? "btn-secondary" : "btn-info")">
+                                @(employee.IsDeleted ? "Inactive" : "Active")
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</div>
